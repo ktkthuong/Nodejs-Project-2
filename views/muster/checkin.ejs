@@ -1,0 +1,32 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="/css/forms.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+
+            <main>
+                <%- include('../includes/nav-child.ejs') %>
+                <div class="grid">
+                    <article>
+                        <div class="form-group">
+                            <label for="annualLeave">Họ Tên</label>
+                            <input type="number" name="annualLeave" id="annualLeave" disabled placeholder="<%= staffs.name %>" />
+                        </div>
+                        <form action="/muster/checkin" method="POST">
+                            <div class="form-group">
+                                <label for="workdress">Nơi làm việc</label>
+                                <select name="workdress" id="workdress">
+                                    <option value="Nhà">Nhà</option>
+                                    <option selected value="Công Ty">Công Ty</option>
+                                    <option value="Khách Hàng">Khách Hàng</option>
+                                </select>
+                                <br /><br />
+                                <button class="btn" type="submit">Điểm Danh</button>
+                            </div>
+                        </form>
+                    </article>
+                </div>
+            </main>
+            <%- include('../includes/end.ejs') %>

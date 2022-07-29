@@ -1,0 +1,92 @@
+<%- include('../includes/head.ejs') %>
+    <style>
+
+        .form-control {
+            margin: 5px auto;
+            height: min-content;
+        }
+
+        .form-control label,
+        .form-control input {
+            display: block;
+            width: 90%;
+        }
+
+        .form-control input {
+            margin: 3px auto;
+            border-radius: 3px;
+            border: 1px solid grey;
+        }
+
+        button {
+            border-radius: 3px;
+            border: 1px solid #5454ad;
+            background-color: #00695c;
+            color: #ffeb3b;
+        }
+    </style>
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+
+            <main>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-4 col-lg-4">
+                            <form action="/covid-info/temperature" method="POST">
+                                <div class="form-control">
+                                    <lable for="nhietdo">Nhiệt Độ</lable>
+                                    <input type="text" name="nhietdo" id="nhietdo" />
+                                </div>
+                                <div class="form-control">
+                                    <lable for="time">Giờ Đo</lable>
+                                    <input type="time" name="time" id="time" />
+                                </div>
+                                <div class="form-control">
+                                    <lable for="date">Ngày Đo</lable>
+                                    <input type="date" name="date" id="date" />
+                                </div>
+                                <button type="submit">Đăng Ký</button>
+                            </form>
+                        </div>
+
+                        <div class="col-12 col-md-4 col-lg-4">
+                            <form action="/covid-info/vaccineInfo" method="POST">
+                                <div class="form-control">
+                                    <lable for="mui1">Tên Vaccine Mũi 1</lable>
+                                    <input type="text" name="mui1" id="mui1" />
+                                </div>
+                                <div class="form-control">
+                                    <lable for="date1">Ngày</lable>
+                                    <input type="date" name="date1" id="date1" />
+                                </div>
+                                <div class="form-control">
+                                    <lable for="mui2">Tên Vaccine Mũi 2</lable>
+                                    <input type="text" name="mui2" id="mui2" />
+                                </div>
+                                <div class="form-control">
+                                    <lable for="date2">Ngày</lable>
+                                    <input type="date" name="date2" id="date2" />
+                                </div>
+                                <button type="submit">Đăng ký</button>
+                            </form>
+                        </div>
+
+                        <div class="col-12 col-md-4 col-lg-4">
+                            <form action="/covid-info/infectCovidInfo" method="POST">
+                                <div class="form-control">
+                                    <lable for="nhiemcovid">Ngày Nhiễm Covid</lable>
+                                    <input type="date" name="nhiemcovid" id="nhiemcovid" />
+                                </div>
+                                <div class="form-control">
+                                    <lable for="hetbenh">Ngày Khỏi Bệnh</lable>
+                                    <input type="date" name="hetbenh" id="hetbenh" />
+                                </div>
+                                <button type="submit">Đăng Ký</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <%- include('../includes/end.ejs') %>

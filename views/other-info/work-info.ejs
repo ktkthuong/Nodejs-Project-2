@@ -1,0 +1,97 @@
+<%- include('../includes/head.ejs') %>
+<!-- <style>
+    table, th, td {
+    border: 1px solid black;
+    padding: 3px 30px;
+    text-align: center;
+    }
+</style> -->
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <h3 class="title my-3">Danh sách giờ đã làm</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Ngày</th>
+                                <th>Giờ bắt đầu</th>
+                                <th>Giờ kết thúc</th>
+                                <th>Nơi làm việc</th>
+                                <th>Giờ làm được</th>
+                            </tr>
+                        </thead>
+                        <% staffs.workTimes.forEach(workTime => { %>
+                        <tbody>
+                            <tr>
+                                <td><%= workTime.startTime.getDate() %></td>
+                                <td><%= workTime.startTime.getHours() + ":" + workTime.startTime.getMinutes()%></td>
+                                <td><%= workTime.endTime === null ? "--" : workTime.endTime.getHours() + ":" + workTime.endTime.getMinutes() %></td>
+                                <td><%= workTime.workPlace %></td>
+                                <td>
+                                    <% if (workTime.endTime === null) { %>
+                                        --
+                                    <% } else { %> 
+                                        <%= workTime.hours %> h
+                                    <% } %>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <% }); %>
+                    </table>
+                    <p><b>Tổng số giờ đã làm ngày hôm nay: </b><%= staffs.totalTimesWork %> h</p>
+                    <p><b>Số Giờ làm thêm: </b><%= staffs.totalTimesWork > 8 ? staffs.totalTimesWork - 8 + " h" : "--" %></p>
+                </div>
+                <div class="col-12 col-md-12 col-lg-12">
+                    <h3 class="title my-3">Danh sách đăng ký nghỉ phép</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Ngày</th>
+                                <th>Số Giờ</th>
+                                <th>Lý do</th>
+                            </tr>
+                        </thead>
+                       
+                        <tr>
+                            <%staffs.leaveInfoList.forEach(leaveInfo => {%>
+                                <tbody>
+                                    <td>
+                                        <%= leaveInfo.dayStartLeave.getDate() + "/" + leaveInfo.dayStartLeave.getMonth() + "/" + leaveInfo.dayStartLeave.getFullYear() %> - <%= leaveInfo.dayEndLeave.getDate() + "/" + leaveInfo.dayEndLeave.getMonth() + "/" + leaveInfo.dayEndLeave.getFullYear() %>
+                                    </td>
+                                    <td>
+                                        <%= leaveInfo.timesLeave %>
+                                    </td>
+                                    <td>
+                                        <%= leaveInfo.reason %>
+                                    </td>
+                                </tbody>
+                            <%})%>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-12 col-md-12 col-lg-12">
+                    <h3 class="title my-3">Chi tiết lương</h3>
+                    <label for="month"><b>Tháng</b></label>
+                    <select name="" id="">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    <p><b>Salary: </b><%= salary %></p>
+                </div>
+            </div>
+        </main>
+        <%- include('../includes/end.ejs') %>

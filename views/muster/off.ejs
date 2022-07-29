@@ -1,0 +1,44 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+
+            <main>
+                <%- include('../includes/nav-child.ejs') %>
+                    <% if (staffs.annualLeave <= 0) { %>
+                        <div class="form-group">
+                            <h3>Ngày nghỉ của bạn đã hết...!</h3>
+                            <form action="/" method="get">
+                                <button class="btn">Quay lại</button>
+                            </form>
+                        </div>
+                    <% } else { %>
+                        <form action="/muster/off" method="POST" class="product-form" >
+                            <div class="form-group">
+                                <label for="annualLeave">Số ngày nghỉ còn lại</label>
+                                <input class="form-control" type="number" name="annualLeave" id="annualLeave" disabled value="<%= staffs.annualLeave %>" />
+                            </div>
+                            <div class="form-group">
+                                <label for="offStart">Chọn ngày nghỉ:</label>
+                                <input class="form-control" type="date" name="offStart" id="offStart" />
+                            </div>
+                            <div class="form-group">
+                                <label for="offEnd">Đến</label>
+                                <input class="form-control" type="date" name="offEnd" id="offEnd" />
+                            </div>
+                            <div class="form-group">
+                                <label for="timesLeave">Số giờ nghỉ tối đa</label>
+                                <input class="form-control" type="number" name="timesLeave" id="timesLeave" max="8" />
+                            </div>
+                            <div class="form-group">
+                                <lable for="reason">Lý do nghỉ:</lable>
+                                <textarea class="form-control" name="reason" id="reason" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Gửi</button>
+                        </form>
+                    <% } %>
+            </main>
+            <%- include('../includes/end.ejs') %>

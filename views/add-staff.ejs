@@ -1,0 +1,43 @@
+<%- include('./includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+   <%- include('./includes/navigation.ejs') %>
+
+    <main>
+        <form class="product-form" action="/addstaff" method="POST">
+            <div class="">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" />
+            </div>
+            <div class="">
+                <label for="doB">doB</label>
+                <input type="date" name="doB" id="doB" />
+            </div>
+            <div class="">
+                <label for="salaryScale">salaryScale</label>
+                <input type="number" name="salaryScale" id="salaryScale" step="0.1" min="0" />
+            </div>
+            <div class="">
+                <label for="startDate">startDate</label>
+                <input type="date" name="startDate" id="startDate" />
+            </div>
+            <div class="">
+                <label for="department">department</label>
+                <input type="text" name="department" id="department" />
+            </div>
+            <div class="">
+                <label for="annualLeave">annualLeave</label>
+                <input type="number" name="annualLeave" id="annualLeave" />
+            </div>
+            <div class="">
+                <label for="image">Image</label>
+                <input type="text" name="image" id="image" />
+            </div>
+
+            <button class="btn" type="submit">Add Staff</button>
+        </form>
+    </main>
+<%- include('./includes/end.ejs') %>

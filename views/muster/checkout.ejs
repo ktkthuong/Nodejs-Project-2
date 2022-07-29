@@ -1,0 +1,32 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/product.css">
+    <style>
+        .inactive {
+            color: grey;
+        }
+    </style>
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+
+            <main>
+                <%- include('../includes/nav-child.ejs') %>
+                <div class="grid">
+                    <article>
+                        <div>
+                            <h4>Số giờ đã làm hôm nay</h4>
+                            <h4>Danh Sách các lượt bắt đầu, kết thúc</h4>
+                        </div>
+                        <% staffs.workTimes.forEach(workTime => { %>
+                        <div>
+                            <p>Nơi làm việc: <%= workTime.workPlace %></p>
+                            <p>Giờ bắt đầu làm: <%= workTime.startTime.getHours() + ":" + workTime.startTime.getMinutes() + ":" + workTime.startTime.getSeconds() %></p>
+                            <p>Giờ kết thúc làm: <%= workTime.endTime.getHours() + ":" + workTime.endTime.getMinutes() + ":" + workTime.endTime.getSeconds() %></p>
+                            <p>Tổng giờ làm: <%= workTime.hours %> h</p>
+                        </div>
+                        <% }); %>
+                    </article>
+                </div>
+            </main>
+            <%- include('../includes/end.ejs') %>

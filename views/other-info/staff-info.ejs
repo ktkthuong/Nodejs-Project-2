@@ -1,0 +1,61 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"> -->
+<style>
+    span {
+        font-size: 20px;
+        margin-left: 1rem;
+    }
+    input {
+        font-size: 18px;
+        margin-left: 1rem;
+    }
+</style>
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <main>
+            <div class="card__actions">
+                    <div>
+                        <i class="fa fa-id-card">
+                            <span><%= staffs._id %></span>
+                        </i>
+                    <div>
+                        <i class="fa fa-user">
+                            <span><%= staffs.name %></span>
+                        </i>
+                    </div>
+                    <div>
+                        <i class="fa fa-birthday-cake">
+                            <span><%= staffs.doB.getFullYear() + "/" + staffs.doB.getMonth() + "/" + staffs.doB.getDate() %></span>
+                        </i>
+                    </div>
+                    <div>
+                        <i class="fa fa-money">
+                            <span><%= staffs.salaryScale %></span>
+                        </i>
+                    </div>
+                    <div>
+                        <i class="fa fa-calendar">
+                            <span><%= staffs.startDate.getFullYear() + "/" + staffs.startDate.getMonth() + "/" + staffs.startDate.getDate() %></span>
+                        </i>
+                    </div>
+                    <div>
+                        <i class="fa fa-tasks">
+                            <span><%= staffs.department %></span>
+                        </i>
+                    </div>
+                    <div>
+                        <i class="fa fa-calendar">
+                            <span></span><%= staffs.annualLeave %>
+                        </i>
+                    </div>
+                    <div>
+                        <i class="fa fa-picture-o"><input type="text" value="<%= staffs.image %>" />
+                        </i>
+                    </div>
+                    <button type="submit">Chỉnh sửa</button>
+            </div>
+        </main>
+        <%- include('../includes/end.ejs') %>
