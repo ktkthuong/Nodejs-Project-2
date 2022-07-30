@@ -33,11 +33,15 @@
           >Thông Tin Covid Cá Nhân
         </a>
       </li>
-      <% } %> <% if(position === 'admin') { %>
-        <li>
-          <a href="/admin/staff" class="<% path === '/add/staff' ? 'active' : '' %>">Quản lý nhân viên</a>
-        </li>
-      <% } %>      
+      <% } %> <% if (position === 'admin' ) {%>
+      <li class="main-header__item">
+        <a
+          href="/admin/staff"
+          class="<%= path === '/admin/staff' ? 'active' : '' %>"
+          >Quản Lý Nhân Viên</a
+        >
+      </li>
+      <%} %>
     </ul>
     <ul class="main-header__item-list">
       <% if (!isAuthenticated) { %>
@@ -88,25 +92,30 @@
         >Thông Tin Covid Cá Nhân
       </a>
     </li>
-      <% } %> <% if (position === 'admin') { %>
-        <li class="main-header__item">
-          <a href="/admin/staff" class="<%= path === '/admin/staff' ? 'active' : '' %>">Quản lý nhân viên</a>
-        </li>
-      <% } %>    
-  </ul class="mobile-nav__item-list">
+    <% } %> <% if (position === 'admin' ) {%>
+    <li class="mobile-nav__item">
+      <a
+        href="/admin/staff"
+        class="<%= path === '/admin/staff' ? 'active' : '' %>"
+        >Quản Lý Nhân Viên</a
+      >
+    </li>
+    <%} %>
+  </ul>
+  <ul class="mobile-nav__item-list">
     <% if (!isAuthenticated) { %>
-      <li class="mobile-nav__item">
-        <a href="/login" class="<%= path === '/login' ? 'active' : '' %>">Đăng nhập</a>
-      </li>
+    <li class="mobile-nav__item">
+      <a class="<%= path === '/login' ? 'active' : '' %>" href="/login"
+        >Đăng Nhập
+      </a>
+    </li>
     <% } else { %>
-      <li class="mobile-nav__item" method="POST">
-        <form action="/logout">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-          <button type="submit">Đăng Xuất</button>
-        </form>
-      </li>
-    <% } %> 
-  <ul>
-
+    <li class="mobile-nav__item">
+      <form action="/logout" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <button type="submit">Đăng Xuất</button>
+      </form>
+    </li>
+    <% } %>
   </ul>
 </nav>

@@ -4,6 +4,17 @@
         .inactive {
             color: grey;
         }
+
+        button:disabled {
+            background-color: grey;
+            color: white;
+            border: 1px solid grey;
+        }
+
+        button:disabled:hover {
+            background-color: grey;
+        }
+        
     </style>
     </head>
 
@@ -12,21 +23,21 @@
 
             <main>
                 <%- include('../includes/nav-child.ejs') %>
-                <div class="grid">
-                    <article>
-                        <div>
-                            <h4>Số giờ đã làm hôm nay</h4>
-                            <h4>Danh Sách các lượt bắt đầu, kết thúc</h4>
-                        </div>
+                    <article class="grid">
                         <% staffs.workTimes.forEach(workTime => { %>
-                        <div>
-                            <p>Nơi làm việc: <%= workTime.workPlace %></p>
-                            <p>Giờ bắt đầu làm: <%= workTime.startTime.getHours() + ":" + workTime.startTime.getMinutes() + ":" + workTime.startTime.getSeconds() %></p>
-                            <p>Giờ kết thúc làm: <%= workTime.endTime.getHours() + ":" + workTime.endTime.getMinutes() + ":" + workTime.endTime.getSeconds() %></p>
-                            <p>Tổng giờ làm: <%= workTime.hours %> h</p>
+                        <div style="background: rgb(146, 146, 240)">
+                            <div>
+                                <h4>Số giờ đã làm hôm nay</h4>
+                                <h4>Danh Sách các lượt bắt đầu, kết thúc</h4>
+                            </div>
+                            <div>
+                                <p>Nơi làm việc: <%= workTime.workPlace %></p>
+                                <p>Giờ bắt đầu làm: <%= workTime.startTime.getHours() + ":" + workTime.startTime.getMinutes() + ":" + workTime.startTime.getSeconds() %></p>
+                                <p>Giờ kết thúc làm: <%= workTime.endTime.getHours() + ":" + workTime.endTime.getMinutes() + ":" + workTime.endTime.getSeconds() %></p>
+                                <p>Tổng giờ làm: <%= workTime.hours %> h</p>
+                            </div>
                         </div>
                         <% }); %>
                     </article>
-                </div>
             </main>
             <%- include('../includes/end.ejs') %>

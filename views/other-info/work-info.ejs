@@ -1,11 +1,23 @@
 <%- include('../includes/head.ejs') %>
-<!-- <style>
-    table, th, td {
-    border: 1px solid black;
-    padding: 3px 30px;
-    text-align: center;
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+/>
+<style>
+    .pagination {
+        margin: 1rem;
+        display: flex;
+        justify-content: center;
     }
-</style> -->
+
+    .pagination a {
+        text-decoration: none;
+        color: #00695c;
+        padding: 0.5rem;
+        border: 1px solid #00695c;
+        margin: 0 1rem;
+    }
+</style>
     </head>
 
     <body>
@@ -24,7 +36,7 @@
                                 <th>Giờ làm được</th>
                             </tr>
                         </thead>
-                        <% staffs.workTimes.forEach(workTime => { %>
+                        <% dataWork.forEach(workTime => { %>
                         <tbody>
                             <tr>
                                 <td><%= workTime.startTime.getDate() %></td>
@@ -42,6 +54,8 @@
                         </tbody>
                         <% }); %>
                     </table>
+                    <%- include('../includes/pagination.ejs', {currentPage: currentPage, nextPage: nextPage, previousPage: previousPage, lastPage: lastPage, hasNextPage: hasNextPage, hasPreviousPage: hasPreviousPage}) %>
+                    
                     <p><b>Tổng số giờ đã làm ngày hôm nay: </b><%= staffs.totalTimesWork %> h</p>
                     <p><b>Số Giờ làm thêm: </b><%= staffs.totalTimesWork > 8 ? staffs.totalTimesWork - 8 + " h" : "--" %></p>
                 </div>
@@ -57,7 +71,7 @@
                         </thead>
                        
                         <tr>
-                            <%staffs.leaveInfoList.forEach(leaveInfo => {%>
+                            <% staffs.leaveInfoList.forEach(leaveInfo => {%>
                                 <tbody>
                                     <td>
                                         <%= leaveInfo.dayStartLeave.getDate() + "/" + leaveInfo.dayStartLeave.getMonth() + "/" + leaveInfo.dayStartLeave.getFullYear() %> - <%= leaveInfo.dayEndLeave.getDate() + "/" + leaveInfo.dayEndLeave.getMonth() + "/" + leaveInfo.dayEndLeave.getFullYear() %>
@@ -90,7 +104,7 @@
                         <option value="11">11</option>
                         <option value="12">12</option>
                     </select>
-                    <p><b>Salary: </b><%= salary %></p>
+                    <p><b>Salary: </b><%=  %></p>
                 </div>
             </div>
         </main>

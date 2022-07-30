@@ -1,0 +1,57 @@
+<%- include ('../includes/head.ejs')%>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+/>
+<style>
+    button {
+            border-radius: 3px;
+            border: 1px solid #5454ad;
+            background-color: #00695c;
+            color: #ffeb3b;
+        }
+</style>
+    </head>
+
+    <body>
+        <%- include ('../includes/navigation.ejs')%>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mx-auto my-4 ">
+                    <form action="/admin/staff" method="POST">
+                        <div class="my-3">
+                            <label class="form-label" for="choose-staff">Chọn nhân viên</label>
+                            <select class="form-select" aria-label="Default select example" name="staff" id="choose-staff">
+                                <option value="none">Chọn nhân viên</option>
+                                <% staffs.forEach(staff => { %>
+                                    <option value="<%=staff._id%>">
+                                        <%= staff.name %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                        </div>
+                        <div class="my-3">
+                            <label class="form-label" for="choose-month">Chọn tháng</label>
+                            <select class="form-select" aria-label="Default select example" name="month" id="choose-month">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </div>            
+                        <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+                        <button type="submit">Chọn</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+<%- include ('../includes/end.ejs')%>

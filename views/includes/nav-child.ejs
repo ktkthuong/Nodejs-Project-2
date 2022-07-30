@@ -1,14 +1,13 @@
 <div class="card__actions">
-  <% if (staffs.workStatus === null || staffs.workStatus === false) { %>
   <form action="/muster/checkin" method="GET">
-    <button class="btn">Điểm Danh</button>
+    <button class="btn" <%= staffs.workStatus === null & staffs.isConfirm === null || staffs.workStatus === false & staffs.isConfirm === null ? "" : "disabled" %>>Điểm Danh</button>
   </form>
-  <% } else { %>
   <form action="/muster/checkout" method="POST">
-    <button class="btn">Tan Ca</button>
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    <button class="btn" <%= staffs.workStatus ? "" : "disabled" %>>Tan Ca</button>
+    
   </form>
-  <% } %>
   <form action="/muster/off" method="GET">
-    <button class="btn">Nghỉ Phép</button>
+    <button class="btn" <%= staffs.isConfirm ? "disabled" : "" %> >Nghỉ Phép</button>
   </form>
 </div>

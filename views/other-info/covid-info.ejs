@@ -1,4 +1,8 @@
 <%- include('../includes/head.ejs') %>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+/>
     <style>
 
         .form-control {
@@ -47,6 +51,7 @@
                                     <lable for="date">Ngày Đo</lable>
                                     <input type="date" name="date" id="date" />
                                 </div>
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                 <button type="submit">Đăng Ký</button>
                             </form>
                         </div>
@@ -69,6 +74,7 @@
                                     <lable for="date2">Ngày</lable>
                                     <input type="date" name="date2" id="date2" />
                                 </div>
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                 <button type="submit">Đăng ký</button>
                             </form>
                         </div>
@@ -83,10 +89,32 @@
                                     <lable for="hetbenh">Ngày Khỏi Bệnh</lable>
                                     <input type="date" name="hetbenh" id="hetbenh" />
                                 </div>
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                 <button type="submit">Đăng Ký</button>
                             </form>
                         </div>
                     </div>
-                </div>
-            </main>
+                    <br>
+                    <br>
+                    <% if (position === 'admin' ) { %> 
+                    <div class="row">
+                        <% staffs.forEach(staff => { %>
+                        <div class="card col-12 col-md-4 col-lg-4" >
+                            <h3 style="text-align: center">Thong tin <%= staff.name %></h3>
+                            <div class="card-body ">
+                                <p class="card-text">Tên nhân viên : <%= staff.name%></p>
+                                <p class="card-text">Nhiệt độ : <%= staff.bodyTemperature[0] ? staff.bodyTemperature[0].temperature : '' %></p>
+                                <p class="card-text">Tên vaccine mũi một: <%= staff.vaccineInfo[0] ? staff.vaccineInfo[0].nameVaccine1 : '' %></p>
+                                <p class="card-text">Ngày tiêm: <%= staff.vaccineInfo[0] ? staff.vaccineInfo[0].date1.getDate() + "/" + (+staff.vaccineInfo[0].date1.getMonth() +1) + "/" + staff.vaccineInfo[0].date1.getFullYear() : '' %></p>
+                                <p class="card-text">Tên vaccine mũi hai: <%= staff.vaccineInfo[0] ? staff.vaccineInfo[0].nameVaccine2 : '' %></p>
+                                <p class="card-text">Ngày tiêm: <%= staff.vaccineInfo[0] ? staff.vaccineInfo[0].date2.getDate() + "/" + (+staff.vaccineInfo[0].date2.getMonth() +1) + "/" + staff.vaccineInfo[0].date2.getFullYear() : '' %></p>
+                                <Button type="button" class="btn btn-info" ><a style='text-decoration:none; color: white' href="/covid-info/<%= staff._id %>">Xuất Trang PDF</a></Button>                 
+                            </div>
+                        </div>     
+                        <% }) %>
+                    </div>
+                    </div>
+                    <% } %>
+            </div>
+        </main>
             <%- include('../includes/end.ejs') %>

@@ -2,6 +2,14 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const staffSchema = new Schema({
+  username: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -25,11 +33,16 @@ const staffSchema = new Schema({
   annualLeave: {
     type: Number,
   },
+  position: {
+    type: String,
+    required: true,
+  },
   image: {
     type: String,
     required: true,
   },
   workStatus: { type: Boolean },
+  isConfirm: { type: Boolean },
   workTimes: [
     {
       startTime: { type: Date },

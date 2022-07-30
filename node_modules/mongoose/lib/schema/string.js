@@ -9,7 +9,6 @@ const MongooseError = require('../error/index');
 const SchemaStringOptions = require('../options/SchemaStringOptions');
 const castString = require('../cast/string');
 const utils = require('../utils');
-const isBsonType = require('../helpers/isBsonType');
 
 const CastError = SchemaType.CastError;
 
@@ -133,8 +132,8 @@ SchemaString.get = SchemaType.get;
  *     const User = mongoose.model('User', new Schema({ name: String }));
  *     new User({ name: '   John Doe   ' }).name; // 'John Doe'
  *
- * @param {String} option The option you'd like to set the value for
- * @param {Any} value value for option
+ * @param {String} option - The option you'd like to set the value for
+ * @param {*} value - value for option
  * @return {undefined}
  * @function set
  * @static
@@ -561,8 +560,8 @@ SchemaString.prototype.match = function match(regExp, message) {
  */
 
 SchemaString.prototype.checkRequired = function checkRequired(value, doc) {
-  if (typeof value === 'object' && SchemaType._isRef(this, value, doc, true)) {
-    return value != null;
+  if (SchemaType._isRef(this, value, doc, true)) {
+    return !!value;
   }
 
   // `require('util').inherits()` does **not** copy static properties, and
@@ -581,7 +580,11 @@ SchemaString.prototype.checkRequired = function checkRequired(value, doc) {
  */
 
 SchemaString.prototype.cast = function(value, doc, init) {
-  if (typeof value !== 'string' && SchemaType._isRef(this, value, doc, init)) {
+  if (SchemaType._isRef(this, value, doc, init)) {
+    if (typeof value === 'string') {
+      return value;
+    }
+
     return this._castRef(value, doc, init);
   }
 
@@ -677,7 +680,7 @@ SchemaString.prototype.castForQuery = function($conditional, val) {
     return handler.call(this, val);
   }
   val = $conditional;
-  if (Object.prototype.toString.call(val) === '[object RegExp]' || isBsonType(val, 'BSONRegExp')) {
+  if (Object.prototype.toString.call(val) === '[object RegExp]') {
     return val;
   }
 

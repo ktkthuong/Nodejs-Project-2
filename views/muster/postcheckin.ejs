@@ -5,6 +5,17 @@
         .active {
             color: green
         }
+        
+        button:disabled {
+            background-color: grey;
+            color: white;
+            border: 1px solid grey;
+        }
+
+        button:disabled:hover {
+            background-color: grey;
+        }
+
     </style>
     </head>
 
@@ -15,20 +26,20 @@
                 <%- include('../includes/nav-child.ejs') %>
                 <div class="grid">
                     <article>
+                        <% const staffLastLenght = staffs.workTimes.length - 1; %>
                         <div>
                             <h4>Tên Nhân Viên</h4>
                             <p><%= staffs.name %></p>
                         </div>
-                        <% staffs.workTimes.forEach(staff => { %>
                         <div>
                             <h4>Nơi làm việc</h4>
-                            <p><%= staff.workPlace %></p>
+                            <p><%= staffs.workTimes[staffLastLenght].workPlace %></p>
                         </div>
                         <div>
                             <h4>Giờ bắt đầu</h4>
-                            <p><%= staff.startTime.getDate() + "/" + (+staff.startTime.getMonth() + 1) + "/" + staff.startTime.getFullYear() + " " + staff.startTime.getHours() + ":" + staff.startTime.getMinutes() + ":" + staff.startTime.getSeconds() %></p>
+                            <p> <%=
+                                staffs.workTimes[staffLastLenght].startTime.getDate() + "/" + (+staffs.workTimes[staffLastLenght].startTime.getMonth() + 1) + "/" + staffs.workTimes[staffLastLenght].startTime.getFullYear() + " " + staffs.workTimes[staffLastLenght].startTime.getHours() + ":" + staffs.workTimes[staffLastLenght].startTime.getMinutes() + ":" + staffs.workTimes[staffLastLenght].startTime.getSeconds() %></p>
                         </div>
-                        <% }); %>
                     </article>
                 </div>
             </main>
