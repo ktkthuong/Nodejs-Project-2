@@ -33,6 +33,13 @@ module.exports = SubdocumentPath;
  */
 
 function SubdocumentPath(schema, path, options) {
+  const schemaTypeIdOption = SubdocumentPath.defaultOptions &&
+    SubdocumentPath.defaultOptions._id;
+  if (schemaTypeIdOption != null) {
+    options = options || {};
+    options._id = schemaTypeIdOption;
+  }
+
   schema = handleIdOption(schema, options);
 
   this.caster = _createConstructor(schema);
@@ -60,25 +67,13 @@ function _createConstructor(schema, baseClass) {
   Subdocument || (Subdocument = require('../types/subdocument'));
 
   const _embedded = function SingleNested(value, path, parent) {
-    const _this = this;
-
     this.$__parent = parent;
     Subdocument.apply(this, arguments);
 
-    this.$session(this.ownerDocument().$session());
-
-    if (parent) {
-      parent.$on('save', function() {
-        _this.emit('save', _this);
-        _this.constructor.emit('save', _this);
-      });
-
-      parent.$on('isNew', function(val) {
-        _this.isNew = val;
-        _this.emit('isNew', val);
-        _this.constructor.emit('isNew', val);
-      });
+    if (parent == null) {
+      return;
     }
+    this.$session(parent.$session());
   };
 
   schema._preCompile();
@@ -319,23 +314,27 @@ SubdocumentPath.prototype.discriminator = function(name, schema, options) {
   return this.caster.discriminators[name];
 };
 
+/*!
+ * ignore
+ */
+
+SubdocumentPath.defaultOptions = {};
+
 /**
  * Sets a default option for all SubdocumentPath instances.
  *
  * #### Example:
  *
  *     // Make all numbers have option `min` equal to 0.
- *     mongoose.Schema.Embedded.set('required', true);
+ *     mongoose.Schema.SubdocumentPath.set('required', true);
  *
- * @param {String} option - The option you'd like to set the value for
- * @param {*} value - value for option
- * @return {undefined}
+ * @param {String} option The option you'd like to set the value for
+ * @param {Any} value value for option
+ * @return {void}
  * @function set
  * @static
  * @api public
  */
-
-SubdocumentPath.defaultOptions = {};
 
 SubdocumentPath.set = SchemaType.set;
 

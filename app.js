@@ -105,41 +105,41 @@ const store = new MongoDBStore({
   app.use(errorController.get404);
   
   mongoose
-    .connect(MONGODB_URI)
-    .then((result) => {
-      Staff.findOne()
-        .then((staff) => {
-          if (!staff) {
-            const staff = new Staff({
-              username: "admin",
-              password: "123456",
-              name: "Phạm Văn A",
-              doB: new Date(1985, 01, 01),
-              salaryScale: 1.5,
-              startDate: new Date(2021, 01, 01),
-              department: "Nhân sự",
-              annualLeave: 12,
-              position: "admin",
-              image: "http://localhost:3000/",
-              workStatus: null,
-              isConfirm: null,
-              workTimes: [],
-              totalTimesWork: null,
-              leaveInfoList: [],
-              bodyTemperature: [],
-              vaccineInfo: [],
-              infectCovidInfo: [],
-            });
-            return staff.save();
-          }
-        })
-        .then((a) => {
-          app.listen(process.env.PORT || 3000, "0.0.0.0", () => {
-            console.log("Connect with mongoBD");
+  .connect(MONGODB_URI)
+  .then((result) => {
+    Staff.findOne()
+      .then((staff) => {
+        if (!staff) {
+          const staff = new Staff({
+            username: "admin",
+            password: "123456",
+            name: "Phạm Văn A",
+            doB: new Date(1999, 01, 01),
+            salaryScale: 1.5,
+            startDate: new Date(2021, 10, 25),
+            department: "Nhân sự",
+            annualLeave: 12,
+            position: "admin",
+            image: "http://localhost:3000/",
+            workStatus: null,
+            isConfirm: null,
+            workTimes: [],
+            totalTimesWork: null,
+            leaveInfoList: [],
+            bodyTemperature: [],
+            vaccineInfo: [],
+            infectCovidInfo: [],
           });
+          return staff.save();
+        }
+      })
+      .then((a) => {
+        app.listen(process.env.PORT || 3000, "0.0.0.0", () => {
+          console.log("Connect with mongoBD");
         });
-    })
-    .catch((err) => console.log(err));
+      });
+  })
+  .catch((err) => console.log(err));
   
 
 
