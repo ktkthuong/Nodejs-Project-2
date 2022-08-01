@@ -21,7 +21,7 @@ const MONGODB_URI =
 
 const app = express();
 
-// kết nói session với mongodb
+// kết nói session với mongodb , collection nơi lưu các phiên là sessions
 const store = new MongoDBStore({
     uri: MONGODB_URI,
     collection: "sessions",
@@ -61,13 +61,13 @@ const store = new MongoDBStore({
   app.use(express.static(path.join(__dirname, "public")));
   app.use("/images", express.static(path.join(__dirname, "images")));
   
-  // sử dụng mongodb để kết nói với session để lưu trữ thông tin người dùng
+  // khởi tạo middleware - sử dụng mongodb để lưu session lưu trữ thông tin người dùng
   app.use(
     session({
       secret: "my secret",
       resave: false,
       saveUninitialized: false,
-      store: store,
+      store: store
     })
   );
   // sử dụng thư viện csrf để bảo vệ khi thực hiện method="POST" nào đó

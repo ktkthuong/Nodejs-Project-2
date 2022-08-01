@@ -2,11 +2,11 @@
 
 const ArrayMethods = require('../../array/methods');
 const Document = require('../../../document');
+const ObjectId = require('../../objectid');
 const castObjectId = require('../../../cast/objectid');
 const getDiscriminatorByValue = require('../../../helpers/discriminator/getDiscriminatorByValue');
 const internalToObjectOptions = require('../../../options').internalToObjectOptions;
 const utils = require('../../../utils');
-const isBsonType = require('../../../helpers/isBsonType');
 
 const arrayParentSymbol = require('../../../helpers/symbols').arrayParentSymbol;
 const arrayPathSymbol = require('../../../helpers/symbols').arrayPathSymbol;
@@ -22,20 +22,12 @@ const methods = {
     return this.toObject(internalToObjectOptions);
   },
 
-  /*!
-   * ignore
-   */
-
-  getArrayParent() {
-    return this[arrayParentSymbol];
-  },
-
   /**
    * Overrides MongooseArray#cast
    *
    * @method _cast
    * @api private
-   * @memberOf MongooseDocumentArray
+   * @receiver MongooseDocumentArray
    */
 
   _cast(value, index) {
@@ -66,7 +58,7 @@ const methods = {
     // only objects are permitted so we can safely assume that
     // non-objects are to be interpreted as _id
     if (Buffer.isBuffer(value) ||
-        isBsonType(value, 'ObjectID') || !utils.isObject(value)) {
+        value instanceof ObjectId || !utils.isObject(value)) {
       value = { _id: value };
     }
 
@@ -134,7 +126,7 @@ const methods = {
         if (sid == _id._id) {
           return val;
         }
-      } else if (!isBsonType(id, 'ObjectID') && !isBsonType(_id, 'ObjectID')) {
+      } else if (!(id instanceof ObjectId) && !(_id instanceof ObjectId)) {
         if (id == _id || utils.deepEqual(id, _id)) {
           return val;
         }

@@ -12,6 +12,7 @@ exports.getMuster = (req, res, next) => {
           pageTitle: "Muster",
           path: "/muster",
           staffs: staff,
+          isAuthenticated: req.session.isLoggedIn
         });
       })
       .catch((err) => console.log(err));
@@ -26,6 +27,7 @@ exports.getCheckIn = (req, res, next) => {
         pageTitle: "Check In",
         path: "/muster/checkin",
         staffs: staff,
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch((err) => console.log(err));
@@ -51,6 +53,7 @@ exports.postCheckIn = (req, res, next) => {
         pageTitle: "Check In",
         path: "/muster/checkin",
         staffs: staff,
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch((err) => console.log(err));
@@ -77,6 +80,7 @@ exports.postCheckOut = (req, res) => {
         pageTitle: "Check Out",
         path: "/muster/checkout",
         staffs: staff,
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch((error) => {
@@ -91,6 +95,7 @@ exports.getOff = (req, res, next) => {
         pageTitle: "Off",
         path: "/muster/off",
         staffs: staff,
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch((err) => console.log(err));

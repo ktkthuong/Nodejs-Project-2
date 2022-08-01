@@ -42,23 +42,24 @@
         >
       </li>
       <%} %>
-    </ul>
-    <ul class="main-header__item-list">
-      <% if (!isAuthenticated) { %>
-      <li class="main-header__item">
-        <a class="<%= path === '/login' ? 'active' : '' %>" href="/login"
-          >Đăng Nhập
-        </a>
-      </li>
+    </ul>    
+    <ul class="main-header__item-list"> 
+      <% if (!isAuthenticated) { %>     
+        <li class="main-header__item">
+          <a class="<%= path === '/login' ? 'active' : '' %>" href="/login"
+            >Đăng Nhập
+          </a>
+        </li>
       <% } else { %>
-      <li class="main-header__item">
-        <form action="/logout" method="POST">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-          <button type="submit">Đăng Xuất</button>
-        </form>
-      </li>
-      <% } %>
+        <li class="main-header__item">
+          <form action="/logout" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <button type="submit">Đăng Xuất</button>
+          </form>
+        </li>  
+      <% } %>    
     </ul>
+    
   </nav>
 </header>
 

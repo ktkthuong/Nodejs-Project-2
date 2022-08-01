@@ -10,6 +10,7 @@ exports.getStaffManager = (req, res, next) => {
           pageTitle: "Staff Manager",
           path: "/admin/staff",
           staffs: staff,
+          isAuthenticated: req.session.isLoggedIn
         });
       })
       .catch((err) => console.log(err));
@@ -36,6 +37,7 @@ exports.postStaffManager = (req, res, next) => {
               workTimes: workTimes,
               staff: staff,
               month: selectMonth,
+              isAuthenticated: req.session.isLoggedIn
             });
           } else {
             return res.render("admin/postStaffManager", {
@@ -44,6 +46,7 @@ exports.postStaffManager = (req, res, next) => {
               workTimes: workTimes,
               staff: staff,
               month: selectMonth,
+              isAuthenticated: req.session.isLoggedIn
             });
           }
         })

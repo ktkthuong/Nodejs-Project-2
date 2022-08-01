@@ -4,7 +4,7 @@ const CastError = require('../../error/cast');
 const StrictModeError = require('../../error/strict');
 const castNumber = require('../../cast/number');
 
-const booleanComparison = new Set(['$and', '$or']);
+const booleanComparison = new Set(['$and', '$or', '$not']);
 const comparisonOperator = new Set(['$cmp', '$eq', '$lt', '$lte', '$gt', '$gte']);
 const arithmeticOperatorArray = new Set([
   // avoid casting '$add' or '$subtract', because expressions can be either number or date,
@@ -66,7 +66,6 @@ const dateOperators = new Set([
   '$isoWeek',
   '$millisecond'
 ]);
-const expressionOperator = new Set(['$not']);
 
 module.exports = function cast$expr(val, schema, strictQuery) {
   if (typeof val !== 'object' || val === null) {
@@ -107,8 +106,6 @@ function _castExpression(val, schema, strictQuery) {
       val[key] = castArithmetic(val[key], schema, strictQuery);
     } else if (arithmeticOperatorNumber.has(key)) {
       val[key] = castNumberOperator(val[key], schema, strictQuery);
-    } else if (expressionOperator.has(key)) {
-      val[key] = _castExpression(val[key], schema, strictQuery);
     }
   }
 

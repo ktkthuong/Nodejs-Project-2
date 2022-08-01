@@ -14,6 +14,7 @@ exports.getStaffInfo = (req, res, next) => {
           path: "/staff-info",
           pageTitle: "Staff Info",
           staffs: staff,
+          isAuthenticated: req.isLoggedIn
         });
       })
       .catch((err) => console.log(er));
@@ -29,6 +30,7 @@ exports.postStaffInfo = (req, res, next) => {
       path: "/staff-info",
       pageTitle: "Staff Info",
       staffs: req.session.staff,
+      isAuthenticated: req.session.isLoggedIn
     });
   }
   const image = avatar.path;
@@ -70,6 +72,7 @@ exports.getWorkInfo = (req, res, next) => {
         nextPage: page + 1,
         previousPage: page - 1,
         lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
+        isAuthenticated: req.session.isLoggedIn
       });
     });
     // Staff.findById(req.staff._id).then((staff) => {
@@ -169,6 +172,7 @@ exports.getCovidInfo = (req, res, next) => {
           path: "/covid-info",
           staffs: staff,
           position: req.session.staff.position,
+          isAuthenticated: req.session.isLoggedIn
         });
       })
       .catch((err) => console.log(err));
