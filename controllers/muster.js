@@ -53,7 +53,6 @@ exports.postCheckIn = (req, res, next) => {
         pageTitle: "Check In",
         path: "/muster/checkin",
         staffs: staff,
-        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch((err) => console.log(err));

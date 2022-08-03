@@ -30,6 +30,7 @@ const store = new MongoDBStore({
   // sử dụng thư viện csrf để bảo vệ khi thực hiện method="POST" nào đó
   const csrfProtection = csrf({});
   
+  //tạo nơi lưu ảnh và tên ảnh
   const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, "images");
@@ -39,6 +40,7 @@ const store = new MongoDBStore({
     },
   });
   
+  //lọc tên file ảnh phù hợp
   const fileFilter = (req, file, cb) => {
     if (
       file.mimetype === "image/png" ||
@@ -55,6 +57,7 @@ const store = new MongoDBStore({
   app.set("views", "views");
   
   app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(express.json());
   app.use(
     multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
   );
@@ -70,8 +73,11 @@ const store = new MongoDBStore({
       store: store
     })
   );
+
+  
   // sử dụng thư viện csrf để bảo vệ khi thực hiện method="POST" nào đó
   app.use(csrfProtection);
+  // app.use(flash());
   
   app.use((req, res, next) => {
     if (!req.session.staff) {
@@ -105,41 +111,43 @@ const store = new MongoDBStore({
   app.use(errorController.get404);
   
   mongoose
-  .connect(MONGODB_URI)
-  .then((result) => {
-    Staff.findOne()
-      .then((staff) => {
-        if (!staff) {
-          const staff = new Staff({
-            username: "admin",
-            password: "123456",
-            name: "Phạm Văn A",
-            doB: new Date(1999, 01, 01),
-            salaryScale: 1.5,
-            startDate: new Date(2021, 10, 25),
-            department: "Nhân sự",
-            annualLeave: 12,
-            position: "admin",
-            image: "http://localhost:3000/",
-            workStatus: null,
-            isConfirm: null,
-            workTimes: [],
-            totalTimesWork: null,
-            leaveInfoList: [],
-            bodyTemperature: [],
-            vaccineInfo: [],
-            infectCovidInfo: [],
+    .connect(MONGODB_URI)
+    .then((result) => {
+      Staff.findOne()
+        .then((staff) => {
+          if (!staff) {
+            const staff = new Staff({
+              username: "admin",
+              password: "123456",
+              name: "Phạm Văn A",
+              doB: new Date(1999, 01, 01),
+              salaryScale: 1.5,
+              startDate: new Date(2021, 01, 01),
+              department: "Nhân Sự",
+              annualLeave: 12,
+              position: "admin",
+              image: "",
+              workStatus: null,
+              isConfirm: null,
+              workTimes: [],
+              totalTimesWork: null,
+              leaveInfoList: [],
+              bodyTemperature: [],
+              vaccineInfo: [],
+              infectCovidInfo: [],
+            });
+            return staff.save();
+          }
+        })
+        .then((a) => {
+          app.listen(process.env.PORT || 3000, "0.0.0.0", () => {
+            console.log("Connect with mongoBD");
           });
-          return staff.save();
-        }
-      })
-      .then((a) => {
-        app.listen(process.env.PORT || 3000, "0.0.0.0", () => {
-          console.log("Connect with mongoBD");
         });
-      });
-  })
-  .catch((err) => console.log(err));
+    })
+    .catch((err) => console.log(err));
+    
+  
   
 
 

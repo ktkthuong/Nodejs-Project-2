@@ -14,7 +14,7 @@ exports.getStaffInfo = (req, res, next) => {
           path: "/staff-info",
           pageTitle: "Staff Info",
           staffs: staff,
-          isAuthenticated: req.isLoggedIn
+          isAuthenticated: req.session.isLoggedIn
         });
       })
       .catch((err) => console.log(er));
