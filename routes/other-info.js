@@ -23,4 +23,6 @@ router.post(
 
 router.get("/covid-info/:covidId", otherInfoController.getPDF);
 
+// router.get("/test", otherInfoController.getPDFTest)
+
 module.exports = router;

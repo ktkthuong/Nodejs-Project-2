@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const PDFDocument = require("pdfkit");
 const Staff = require("../models/staff");
-const deleteFile = require("../util/fileHelper");
+const fileHelper = require("../util/file");
 
 exports.getStaffInfo = (req, res, next) => {
   if (!req.session.isLoggedIn) {
@@ -22,15 +22,14 @@ exports.getStaffInfo = (req, res, next) => {
 };
 
 exports.postStaffInfo = (req, res, next) => {
-  deleteFile(req.staff.image);
+  fileHelper.deleteFile(req.staff.image);
   const avatar = req.file;
   if (!avatar) {
     console.log("khong co avatar");
-    res.render("other-info/staff-info", {
+    return res.status(422).render("other-info/staff-info", {
       path: "/staff-info",
       pageTitle: "Staff Info",
       staffs: req.session.staff,
-      isAuthenticated: req.session.isLoggedIn
     });
   }
   const image = avatar.path;
@@ -238,47 +237,128 @@ exports.getPDF = (req, res, next) => {
   const covidId = req.params.covidId;
   Staff.findById(covidId)
     .then((staff) => {
-      let temperature = staff.bodyTemperature[0]
-        ? staff.bodyTemperature[0].temperature
-        : "";
-      let nameVaccine1 = staff.vaccineInfo[0]
-        ? staff.vaccineInfo[0].nameVaccine1
-        : "";
-      let date1 = staff.vaccineInfo[0]
-        ? staff.vaccineInfo[0].date1.getDate() +
-          "/" +
-          (+staff.vaccineInfo[0].date1.getMonth() + 1) +
-          "/" +
-          staff.vaccineInfo[0].date1.getFullYear()
-        : "";
-      let nameVaccine2 = staff.vaccineInfo[1]
-        ? staff.vaccineInfo[1].nameVaccine2
-        : "";
-      let date2 = staff.vaccineInfo[0]
-        ? staff.vaccineInfo[0].date2.getDate() +
-          "/" +
-          (+staff.vaccineInfo[0].date2.getMonth() + 1) +
-          "/" +
-          staff.vaccineInfo[0].date2.getFullYear()
-        : "";
+      // let temperature = staff.bodyTemperature[0]
+      //   ? staff.bodyTemperature[0].temperature
+      //   : "";
+      // let nameVaccine1 = staff.vaccineInfo[0]
+      //   ? staff.vaccineInfo[0].nameVaccine1
+      //   : "";
+      // let date1 = staff.vaccineInfo[0]
+      //   ? staff.vaccineInfo[0].date1.getDate() +
+      //     "/" +
+      //     (+staff.vaccineInfo[0].date1.getMonth() + 1) +
+      //     "/" +
+      //     staff.vaccineInfo[0].date1.getFullYear()
+      //   : "";
+      // let nameVaccine2 = staff.vaccineInfo[1]
+      //   ? staff.vaccineInfo[1].nameVaccine2
+      //   : "";
+      // let date2 = staff.vaccineInfo[0]
+      //   ? staff.vaccineInfo[0].date2.getDate() +
+      //     "/" +
+      //     (+staff.vaccineInfo[0].date2.getMonth() + 1) +
+      //     "/" +
+      //     staff.vaccineInfo[0].date2.getFullYear()
+      //   : "";
 
-      const pdfName = staff.name + ".pdf";
+      const pdfName = staff.name + '-' + covidId + ".pdf";
       const pdfPath = path.join("data", "covidPdf", pdfName);
-      const file = fs.createWriteStream(pdfPath);
+      // fs.readFile(pdfPath, (err, data) => {
+      //   if(err) {
+      //     return next(err);
+      //   }
+      //   res.setHeader('Content-Type', 'application/pdf');
+      //   res.setHeader('Content-Disposition', 'inline; filename="' + pdfName + '"' );
+      //   res.send(data);
+      // });
+      // const file = fs.createReadStream(pdfPath);     
+      // file.pipe(res);
+      
+      // const file = fs.createWriteStream(pdfPath);      
       const pdfDoc = new PDFDocument();
-      pdfDoc.pipe(file);
+      res.setHeader('Content-Type', 'application/pdf');
+      //res.setHeader('Content-disposition', 'inline; filename="' + pdfName + '"' );
+      pdfDoc.pipe(fs.createWriteStream(pdfPath));
+      // pdfDoc.pipe(file);
       pdfDoc.pipe(res);
 
       pdfDoc.fontSize(26).text("Staff - Covid", { underline: true });
       pdfDoc.text("---------------");
       pdfDoc.text("Ten nhan vien : " + staff.name);
-      pdfDoc.text("Nhiet do: " + temperature);
-      pdfDoc.text("Vaccine mui mot: " + nameVaccine1);
-      pdfDoc.text("Ngay tiem: " + date1);
-      pdfDoc.text("Vaccine mui 2: " + nameVaccine2);
-      pdfDoc.text("Ngay tiem : " + date2);
+      pdfDoc.text("Nhiet do: " + staff.bodyTemperature[0].temperature);
+      pdfDoc.text("Vaccine mui mot: " + staff.vaccineInfo[0].nameVaccine1 );
+      pdfDoc.text("Ngay tiem: " + staff.vaccineInfo[0].date1.toLocaleDateString());
+      pdfDoc.text("Vaccine mui 2: " + staff.vaccineInfo[0].nameVaccine2);
+      pdfDoc.text("Ngay tiem : " + staff.vaccineInfo[0].date2.toLocaleDateString());
       pdfDoc.text("---------------");
       pdfDoc.end();
     })
     .catch((err) => console.log(err));
 };
+
+// exports.getPDFTest = (req, res, next) => { 
+//   // Create a document
+//   const doc = new PDFDocument({bufferPages: true});
+
+//   // Pipe its output somewhere, like to a file or HTTP response
+//   // See below for browser usage
+//   doc.pipe(fs.createWriteStream('output.pdf'));
+
+//   // Embed a font, set the font size, and render some text
+//   doc
+//     //.font('fonts/PalatinoBold.ttf')
+//     .fontSize(25)
+//     .text('Some text with an embedded font!', 100, 100);
+
+//   // Add an image, constrain it to a given size, and center it vertically and horizontally
+//   // doc.image('/public/images/hinh.jpg', {
+//   //   fit: [250, 300],
+//   //   align: 'center',
+//   //   valign: 'center'
+//   // });
+
+//   // Add another page
+//   doc
+//     .addPage()
+//     .fontSize(25)
+//     .text('Here is some vector graphics...', 100, 100);
+
+//   // Draw a triangle
+//   doc
+//     .save()
+//     .moveTo(100, 150)
+//     .lineTo(100, 250)
+//     .lineTo(200, 250)
+//     .fill('#FF3300');
+
+//   // Apply some transforms and render an SVG path with the 'even-odd' fill rule
+//   doc
+//     .scale(0.6)
+//     .translate(470, -380)
+//     .path('M 250,75 L 323,301 131,161 369,161 177,301 z')
+//     .fill('red', 'even-odd')
+//     .restore();
+
+//   // Add some text with annotations
+//   doc
+//     .addPage()
+//     .fillColor('blue')
+//     .text('Here is a link!', 100, 100)
+//     .underline(100, 100, 160, 27, { color: '#0000FF' })
+//     .link(100, 100, 160, 27, 'http://google.com/');
+
+//   // Finalize PDF file
+//   doc.end();
+//   let buffers = [];
+//   doc.on('data', buffers.push.bind(buffers));
+//   doc.on('end', () => {
+
+//     let pdfData = Buffer.concat(buffers);
+//     res.writeHead(200, {
+//     'Content-Length': Buffer.byteLength(pdfData),
+//     'Content-Type': 'application/pdf',
+//     'Content-disposition': 'attachment;filename=test.pdf',})
+//     .end(pdfData);
+
+//   });
+// };

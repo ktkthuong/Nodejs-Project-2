@@ -100,9 +100,9 @@
                     <div class="row">
                         <% staffs.forEach(staff => { %>
                         <div class="card col-12 col-md-4 col-lg-4" >
-                            <h3 style="text-align: center">Thong tin <%= staff.name %></h3>
+                            <h3 style="text-align: center">Thông tin: <%= staff.name %></h3>
                             <div class="card-body ">
-                                <p class="card-text">Tên nhân viên : <%= staff.name%></p>
+                                <p class="card-text">Tên nhân viên : <%= staff.name %></p>
                                 <p class="card-text">Nhiệt độ : <%= staff.bodyTemperature[0] ? staff.bodyTemperature[0].temperature : '' %></p>
                                 <p class="card-text">Tên vaccine mũi một: <%= staff.vaccineInfo[0] ? staff.vaccineInfo[0].nameVaccine1 : '' %></p>
                                 <p class="card-text">Ngày tiêm: <%= staff.vaccineInfo[0] ? staff.vaccineInfo[0].date1.getDate() + "/" + (+staff.vaccineInfo[0].date1.getMonth() +1) + "/" + staff.vaccineInfo[0].date1.getFullYear() : '' %></p>

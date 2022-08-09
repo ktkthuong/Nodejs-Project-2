@@ -243,7 +243,8 @@ form {
 
 .pagination {
   margin-top: 2rem;
-  text-align: center;
+  /* text-align: center; */
+  justify-content: center;
 }
 
 .pagination a {

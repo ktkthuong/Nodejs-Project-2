@@ -109,14 +109,14 @@ const store = new MongoDBStore({
   app.use(adminRoutes);
   app.use(authRoutes);
   app.use(errorController.get404);
-  
+  //Doan code nay dung de tao user test - start
   mongoose
     .connect(MONGODB_URI)
     .then((result) => {
-      Staff.findOne()
+      Staff.findOne({username: "admin"})
         .then((staff) => {
           if (!staff) {
-            const staff = new Staff({
+            const adminStaff = new Staff({
               username: "admin",
               password: "123456",
               name: "Phạm Văn A",
@@ -136,16 +136,42 @@ const store = new MongoDBStore({
               vaccineInfo: [],
               infectCovidInfo: [],
             });
-            return staff.save();
+            adminStaff.save();
           }
         })
-        .then((a) => {
-          app.listen(process.env.PORT || 3000, "0.0.0.0", () => {
-            console.log("Connect with mongoBD");
-          });
-        });
+
+        Staff.findOne({username: "staff"})
+        .then((staff) => {
+          if (!staff) {
+            const normalStaff = new Staff({
+              username: "staff",
+              password: "123456",
+              name: "Phạm Văn B",
+              doB: new Date(1999, 01, 01),
+              salaryScale: 1.5,
+              startDate: new Date(2021, 01, 01),
+              department: "IT",
+              annualLeave: 12,
+              position: "staff",
+              image: "",
+              workStatus: null,
+              isConfirm: null,
+              workTimes: [],
+              totalTimesWork: null,
+              leaveInfoList: [],
+              bodyTemperature: [],
+              vaccineInfo: [],
+              infectCovidInfo: [],
+            });
+            normalStaff.save();
+          }
+        })
     })
     .catch((err) => console.log(err));
+//End tao users
+    app.listen(process.env.PORT || 3000, "0.0.0.0", () => {
+      console.log("Connect with mongoBD");
+    });
     
   
   

@@ -1,6 +1,7 @@
 const Staff = require("../models/staff");
 
 const bcrypt = require('bcryptjs');
+const staff = require("../models/staff");
 
 exports.getLogin = (req, res, next) => {
   console.log(req.session.isLoggedIn);
@@ -46,41 +47,54 @@ exports.postLogin = (req, res, next) => {
       return bcrypt
         .hash(password, 12)
         .then(hashedPassword => {
-          const staff = new Staff({
-            username: username,
-            password: hashedPassword,
-            name: name,
-            doB: doB,
-            salaryScale: salaryScale,
-            startDate: startDate,
-            department: department,
-            annualLeave: annualLeave,
-            position: position,
-            image: image   
-          })
-          return staff.save();
+          //Lay hashedPassword findOne trong DB neu dung thi tra ve true
+          let a = true;
+          console.log("postLogin check dang nhap dung", a)
+          return true;
+          //Neu khong ton tai thi tra ve false
+
+          // const staff = new Staff({
+          //   username: username,
+          //   password: hashedPassword,
+          //   name: "admin",
+          //   doB: new Date(1999, 01, 01),
+          //   salaryScale: 1.5,
+          //   startDate: new Date(2021,01,01),
+          //   department: 'Nhân Sự',
+          //   annualLeave: 12,
+          //   position: 'admin',
+          //   image: 'localhost://3000'   
+          // }, 
+          // {
+          //   username: username,
+          //   password: hashedPassword,
+          //   name: staff,
+          //   doB: new Date(1999, 01, 01),
+          //   salaryScale: 1.5,
+          //   startDate: new Date(2021,01,01),
+          //   department: 'IT',
+          //   annualLeave: 12,
+          //   position: 'staff',
+          //   image: 'localhost://3000'   
+          // } 
+          //)
+          //res.redirect('/');
+          // return staff.save();
       })
-      .then(result => {
-        req.session.isLoggedIn = true;
-            req.session.staff = staff;
-            return req.session.save((err) => {
-              res.redirect("/");
-              res.redirect('/login');
-            });             
-       })
+      
       // bcrypt
       // .compare(password, staff.password)
-      // .then(doMatch => {
-      //   if(doMatch) {
-      //     // req.setHeader('Set-Cookie', 'loggedIn=true; HttpOnly');//thiết lập cookie
-      //     req.session.isLoggedIn = true;
-      //     req.session.staff = staff;
-      //     return req.session.save((err) => {
-      //       res.redirect("/");
-      //     });          
-      //   }
-      //   res.redirect('/login');
-      // })
+      .then(doMatch => {
+        if(doMatch) {
+          // req.setHeader('Set-Cookie', 'loggedIn=true; HttpOnly');//thiết lập cookie
+          req.session.isLoggedIn = true;
+          req.session.staff = staff;
+          return req.session.save((err) => {
+            res.redirect("/");
+          });          
+        }
+        res.redirect('/login');
+      })
       .catch(err => {
         console.log(err);
         res.redirect('/login');
