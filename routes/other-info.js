@@ -20,9 +20,11 @@ router.post(
   "/covid-info/infectCovidInfo",
   otherInfoController.postInfectCovidInfo
 );
-
+//get pdf router
 router.get("/covid-info/:covidId", otherInfoController.getPDF);
 
-// router.get("/test", otherInfoController.getPDFTest)
+// salary router
+router.post('/salary', otherInfoController.postSalary);
+router.get('/salary', otherInfoController.getSalary);
 
 module.exports = router;

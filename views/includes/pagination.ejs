@@ -1,24 +1,18 @@
 <section class="pagination">
   <% if (currentPage !== 1 && previousPage !== 1) { %>
-  <a href="?page=1&rowpage=<%=ITEMS_PER_PAGE%>">1</a>
+    <a href="?page=1&rowpage=<%=ITEMS_PER_PAGE%>">1</a>
   <% } %> <% if (hasPreviousPage) { %>
-  <a href="?page=<%= previousPage %>&rowpage=<%=ITEMS_PER_PAGE%>"
-    ><%= previousPage %></a
-  >
+    <a href="?page=<%= previousPage %>&rowpage=<%=ITEMS_PER_PAGE%>"><%= previousPage %></a>
   <% } %>
-  <a href="?page=<%= currentPage %>&rowpage=<%=ITEMS_PER_PAGE%>" class="active"
+    <a href="?page=<%= currentPage %>&rowpage=<%=ITEMS_PER_PAGE%>" class="active"
     ><%= currentPage %></a
   >
   <% if (hasNextPage) { %>
-  <a href="?page=<%= nextPage %>&rowpage=<%=ITEMS_PER_PAGE%>"
-    ><%= nextPage %></a
-  >
+    <a href="?page=<%= nextPage %>&rowpage=<%=ITEMS_PER_PAGE%>"><%= nextPage %></a>
   <% } %> <% if (lastPage !== currentPage && nextPage !== lastPage) { %>
-  <a href="?page=<%= lastPage %>&rowpage=<%=ITEMS_PER_PAGE%>"
-    ><%= lastPage %></a
-  >
+    <a href="?page=<%= lastPage %>&rowpage=<%=ITEMS_PER_PAGE%>"><%= lastPage %></a>
   <% } %>
-  <a href="/work-info/?rowpage=1">20</a>
-  <a href="/work-info/?rowpage=2">30</a>
-  <a href="/work-info/?rowpage=3">40</a>
+    <a href="/work-info/?rowpage=20">20</a>
+    <a href="/work-info/?rowpage=30">30</a>
+    <a href="/work-info/?rowpage=40">40</a>
 </section>

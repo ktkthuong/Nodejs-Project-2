@@ -10,6 +10,7 @@ const homeRoutes = require("./routes/home");
 const musterRoutes = require("./routes/muster");
 const otherInfoRoutes = require("./routes/other-info");
 const adminRoutes = require("./routes/admin");
+const staffRoutes = require("./routes/staff");
 const authRoutes = require("./routes/auth");
 const errorController = require("./controllers/error");
 
@@ -107,6 +108,7 @@ const store = new MongoDBStore({
   app.use(musterRoutes);
   app.use(otherInfoRoutes);
   app.use(adminRoutes);
+  app.use(staffRoutes);
   app.use(authRoutes);
   app.use(errorController.get404);
   //Doan code nay dung de tao user test - start
