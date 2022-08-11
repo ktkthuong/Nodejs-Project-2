@@ -10,7 +10,7 @@ const homeRoutes = require("./routes/home");
 const musterRoutes = require("./routes/muster");
 const otherInfoRoutes = require("./routes/other-info");
 const adminRoutes = require("./routes/admin");
-const staffRoutes = require("./routes/staff");
+// const staffRoutes = require("./routes/staff");
 const authRoutes = require("./routes/auth");
 const errorController = require("./controllers/error");
 
@@ -18,7 +18,7 @@ const mongoose = require("mongoose");
 const Staff = require("./models/staff");
 
 const MONGODB_URI = 
-'mongodb+srv://ktkthuong:30062010phat@cluster0.gwa1tdk.mongodb.net/staff?retryWrites=true&w=majority';
+'mongodb+srv://ktkthuong:30062010phat@cluster0.gwa1tdk.mongodb.net/staffs?retryWrites=true&w=majority';
 
 const app = express();
 
@@ -108,7 +108,7 @@ const store = new MongoDBStore({
   app.use(musterRoutes);
   app.use(otherInfoRoutes);
   app.use(adminRoutes);
-  app.use(staffRoutes);
+  // app.use(staffRoutes);
   app.use(authRoutes);
   app.use(errorController.get404);
   //Doan code nay dung de tao user test - start
@@ -128,7 +128,7 @@ const store = new MongoDBStore({
               department: "Nhân Sự",
               annualLeave: 12,
               position: "admin",
-              image: "",
+              image: "http://localhost:3000/",
               workStatus: null,
               isConfirm: null,
               workTimes: [],
@@ -155,7 +155,7 @@ const store = new MongoDBStore({
               department: "IT",
               annualLeave: 12,
               position: "staff",
-              image: "",
+              image: "http://localhost:3000/",
               workStatus: null,
               isConfirm: null,
               workTimes: [],

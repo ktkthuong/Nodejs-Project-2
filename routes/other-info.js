@@ -24,7 +24,7 @@ router.post(
 router.get("/covid-info/:covidId", otherInfoController.getPDF);
 
 // salary router
-router.post('/salary', otherInfoController.postSalary);
-router.get('/salary', otherInfoController.getSalary);
+// router.post('/salary', otherInfoController.postSalary);
+// router.get('/salary', otherInfoController.getSalary);
 
 module.exports = router;

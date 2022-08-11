@@ -3,7 +3,7 @@ const path = require("path");
 const PDFDocument = require("pdfkit");
 const Staff = require("../models/staff");
 const fileHelper = require("../util/file");
-const Salary = require('../models/salary');
+// const Salary = require('../models/salary');
 
 exports.getStaffInfo = (req, res, next) => {
   if (!req.session.isLoggedIn) {
@@ -142,49 +142,49 @@ exports.getWorkInfo = (req, res, next) => {
   //   });
   // }
 };
-exports.postSalary = (req, res, next) => {
-  // const staffId = req.session.staff._id;
-  // const annualLeave = annualLeave.find({
-  //   staffId: staffId,
-  // });
-  // Staff.findById(staffId)
-  //   .then((staff) => {
-    console.log(req.staff);
-    req.staff
-    .handleTotalTimes(req.staff)
-    .then((staff) => {
-      console.log("staff", staff);
-      const overTime =
-        staff.totalTimesWork > 8 ? staff.totalTimesWork - 8 : 0;
-      const shortTime =
-        staff.totalTimesWork < 8 ? staff.totalTimesWork - 8 : 0;
-      const salary =
-        staff.salaryScale * 3000000 + (overTime - shortTime) * 200000;
-      console.log("overTime", overTime);
-      console.log("shortTime", shortTime);  
-      res.render("other-info/work-info", {
-        path: "/work-info",
-        pageTitle: "Working Info",
-        staffs: staff,
-        salary: salary,
-      });
-    })  
+// exports.postSalary = (req, res, next) => {
+//   // const staffId = req.session.staff._id;
+//   // const annualLeave = annualLeave.find({
+//   //   staffId: staffId,
+//   // });
+//   // Staff.findById(staffId)
+//   //   .then((staff) => {
+//     console.log(req.staff);
+//     req.staff
+//     .handleTotalTimes(req.staff)
+//     .then((staff) => {
+//       console.log("staff", staff);
+//       const overTime =
+//         staff.totalTimesWork > 8 ? staff.totalTimesWork - 8 : 0;
+//       const shortTime =
+//         staff.totalTimesWork < 8 ? staff.totalTimesWork - 8 : 0;
+//       const salary =
+//         staff.salaryScale * 3000000 + (overTime - shortTime) * 200000;
+//       console.log("overTime", overTime);
+//       console.log("shortTime", shortTime);  
+//       res.render("other-info/work-info", {
+//         path: "/work-info",
+//         pageTitle: "Working Info",
+//         staffs: staff,
+//         salary: salary,
+//       });
+//     })  
   
   
-  .catch((err) => console.log(err));
-}
+//   .catch((err) => console.log(err));
+// }
 
-exports.getSalary = (req, res) => {
-  Salary.find({ staffId: req.session.staff._id })
-    .then((salary) => {
-      res.render('work-info/salary', {
-        path: '/work-info/salary',
-        pageTitle: 'Salary Information',
-        salary: salary,
-      });
-    })
-    .catch((err) => console.log(err));
-};
+// exports.getSalary = (req, res) => {
+//   Salary.find({ staffId: req.session.staff._id })
+//     .then((salary) => {
+//       res.render('work-info/salary', {
+//         path: '/work-info/salary',
+//         pageTitle: 'Salary Information',
+//         salary: salary,
+//       });
+//     })
+//     .catch((err) => console.log(err));
+// };
 
 
 exports.getCovidInfo = (req, res, next) => {
@@ -313,7 +313,7 @@ exports.getPDF = (req, res, next) => {
       pdfDoc.text("---------------");
       pdfDoc.text("Ten nhan vien : " + staff.name);
       pdfDoc.text("Nhiet do: " + staff.bodyTemperature[0].temperature);
-      pdfDoc.text("Vaccine mui mot: " + staff.vaccineInfo[0].nameVaccine1 );
+      pdfDoc.text("Vaccine mui mot: " + staff.vaccineInfo[0].nameVaccine1);
       pdfDoc.text("Ngay tiem: " + staff.vaccineInfo[0].date1.toLocaleDateString());
       pdfDoc.text("Vaccine mui 2: " + staff.vaccineInfo[0].nameVaccine2);
       pdfDoc.text("Ngay tiem : " + staff.vaccineInfo[0].date2.toLocaleDateString());
