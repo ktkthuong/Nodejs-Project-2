@@ -304,7 +304,7 @@ exports.getPDF = (req, res, next) => {
       // const file = fs.createWriteStream(pdfPath);      
       const pdfDoc = new PDFDocument();
       res.setHeader('Content-Type', 'application/pdf');
-      //res.setHeader('Content-disposition', 'inline; filename="' + pdfName + '"' );
+      // res.setHeader('Content-disposition', 'inline; filename="' + pdfName + '"' );
       pdfDoc.pipe(fs.createWriteStream(pdfPath));
       // pdfDoc.pipe(file);
       pdfDoc.pipe(res);
