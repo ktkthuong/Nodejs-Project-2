@@ -4,7 +4,7 @@
   </form>
   <form action="/muster/checkout" method="POST">
     <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-    <button class="btn" <%= staffs.workStatus ? "disabled" : "" %>>Tan Ca</button>
+    <button class="btn" <%= staffs.workStatus ? "" : "disabled" %>>Tan Ca</button>
     
   </form>
   <form action="/muster/off" method="GET">

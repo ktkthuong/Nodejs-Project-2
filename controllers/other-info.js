@@ -303,7 +303,7 @@ exports.getPDF = (req, res, next) => {
       
       // const file = fs.createWriteStream(pdfPath);      
       const pdfDoc = new PDFDocument();
-      res.setHeader('Content-Type', 'application/pdf');
+       res.setHeader('Content-Type', 'application/pdf');
       // res.setHeader('Content-disposition', 'inline; filename="' + pdfName + '"' );
       pdfDoc.pipe(fs.createWriteStream(pdfPath));
       // pdfDoc.pipe(file);
@@ -312,7 +312,7 @@ exports.getPDF = (req, res, next) => {
       pdfDoc.fontSize(26).text("Staff - Covid", { underline: true });
       pdfDoc.text("---------------");
       pdfDoc.text("Ten nhan vien : " + staff.name);
-      pdfDoc.text("Nhiet do: " + staff.bodyTemperature[0].temperature);
+      pdfDoc.text("Nhiet do: " + staff.bodyTemperature[0]);
       pdfDoc.text("Vaccine mui mot: " + staff.vaccineInfo[0].nameVaccine1);
       pdfDoc.text("Ngay tiem: " + staff.vaccineInfo[0].date1.toLocaleDateString());
       pdfDoc.text("Vaccine mui 2: " + staff.vaccineInfo[0].nameVaccine2);
