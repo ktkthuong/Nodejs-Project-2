@@ -1,6 +1,6 @@
 <div class="card__actions">
   <form action="/muster/checkin" method="GET">
-    <button class="btn" <%= staffs.workStatus === null & staffs.isConfirm === null || staffs.workStatus === false & staffs.isConfirm === null ? "" : "disabled" %>>Điểm Danh</button>
+    <button class="btn" <%= staffs.workStatus === null & staffs.isConfirm === null || staffs.workStatus === false & staffs.isConfirm === null ? "" : "disabled" %> >Điểm Danh</button>
   </form>
   <form action="/muster/checkout" method="POST">
     <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
